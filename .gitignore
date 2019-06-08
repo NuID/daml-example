@@ -1,0 +1,34 @@
+# DAML
+.interfaces
+.package-database
+
+# build
+target
+*.jar
+*.class
+classes
+
+# clj
+.cpcache
+
+# emacs
+.\#*
+
+# vim
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# nREPL
+.nrepl-port
+
+# nohup
+nohup.out
+
+# misc
+logs
+log
+tmp
+*.tmp

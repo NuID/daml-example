@@ -1,0 +1,26 @@
+{:mvn/repos
+ {"bintray"
+  {:url "https://digitalassetsdk.bintray.com/DigitalAssetSDK"}},
+ :deps
+ {com.daml.ledger/bindings-rxjava
+  {:mvn/version "100.12.24"
+   :exclusions [com.google.protobuf/protobuf-lite]},
+  ch.qos.logback/logback-classic {:mvn/version "1.2.3"},
+  com.sparkjava/spark-core {:mvn/version "2.7.2"}},
+ :aliases
+ {:codegen
+  {:extra-deps
+   {com.daml.java/codegen {:mvn/version "100.12.24"}},
+   :main-opts
+   ["-m" "daml.codegen.main"
+    "-o" "target/generated-sources/iou"
+    "-d" "com.digitalasset.quickstart.iou.TemplateDecoder"
+    "target/daml/iou.dar=com.digitalasset.quickstart.model"]},
+  :quickstart
+  {:extra-paths
+   ["target/generated-sources"],
+   :main-opts
+   ["-m" "com.digitalasset.quickstart.iou.IouMain"
+    "localhost" "6865" "Alice" "8080"]}},
+ :paths
+ ["src"]}
