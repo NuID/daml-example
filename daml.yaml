@@ -1,7 +1,6 @@
-sdk-version: 0.12.24
-name: daml-ex
+sdk-version: 0.13.13
+name: daml-nuid-ex
 source: daml/Main.daml
-scenario: Main:setup
 parties:
   - Alice
   - Bob
