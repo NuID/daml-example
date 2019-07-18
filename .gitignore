@@ -1,6 +1,8 @@
 # DAML
 .interfaces
 .package-database
+.daml
+*.log
 
 # build
 target
