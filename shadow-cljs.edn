@@ -1,0 +1,62 @@
+{:builds
+ {:login
+  {:target :browser
+   :output-dir "resources/public/js/example/login"
+   :asset-path "/js/example/login"
+   :modules
+   {:login
+    {:entries
+     [example.browser.login]}}
+   :devtools
+   {:http-port 9090
+    :http-root "resources/public"
+    :after-load example.browser.login/render}}
+  :home
+  {:target :browser
+   :output-dir "resources/public/js/example/home"
+   :asset-path "/js/example/home"
+   :modules
+   {:home
+    {:entries
+     [example.browser.home]}}
+   :devtools
+   {:http-port 9091
+    :http-root "resources/public"
+    :after-load example.browser.home/render}}
+  :usdbanklogin
+  {:target :browser
+   :output-dir "resources/public/js/example/usdbanklogin"
+   :asset-path "/js/example/usdbanklogin"
+   :modules
+   {:usdbanklogin
+    {:entries
+     [example.browser.usdbanklogin]}}
+   :devtools
+   {:http-port 9092
+    :http-root "resources/public"
+    :after-load example.browser.usdbanklogin/render}}
+  :usdbank
+  {:target :browser
+   :output-dir "resources/public/js/example/usdbank"
+   :asset-path "/js/example/usdbank"
+   :modules
+   {:usdbank
+    {:entries
+     [example.browser.usdbank]}}
+   :devtools
+   {:http-port 9093
+    :http-root "resources/public"
+    :after-load example.browser.usdbank/render}}
+  :presentation
+  {:target :browser
+   :output-dir "resources/public/js/example/presentation"
+   :asset-path "/js/example/presentation"
+   :modules
+   {:presentation
+    {:entries
+     [example.browser.presentation]}}
+   :devtools
+   {:http-port 9094
+    :http-root "resources/public"
+    :after-load example.browser.presentation/render}}}
+ :deps {:aliases [:shadow]}}

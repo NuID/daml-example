@@ -6,9 +6,12 @@
 
 # build
 target
+classes
 *.jar
 *.class
-classes
+.shadow-cljs
+cljs-runtime
+resources/public/js
 
 # clj
 .cpcache
@@ -34,3 +37,5 @@ logs
 log
 tmp
 *.tmp
+
+node_modules

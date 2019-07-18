@@ -4,36 +4,18 @@
 daml 1.2
 module Main where
 
-import Iou
-import IouTrade()
+import Credential
 
 setup = scenario do
-  alice <- getParty "Alice"
-  bob <- getParty "Bob"
-  usBank <- getParty "USD_Bank"
+  alice   <- getParty "Alice"
+  bob     <- getParty "Bob"
+  usBank  <- getParty "USD_Bank"
   eurBank <- getParty "EUR_Bank"
 
-  -- Banks issue Iou transfers
-  iouTransferAliceCid <- submit eurBank do
-    iouCid <- create Iou with
-      issuer = eurBank
-      owner = eurBank
-      currency = "EUR"
-      amount = 100.0
-      observers = []
-    exercise iouCid Iou_Transfer with newOwner = alice
-
-  iouTransferBobCid <- submit usBank do
-    iouCid <- create Iou with
-      issuer = usBank
-      owner = usBank
-      currency = "USD"
-      amount = 110.0
-      observers = []
-    exercise iouCid Iou_Transfer with newOwner = bob
-
-  -- Bob and Alice accept
-  submit alice do
-    exercise iouTransferAliceCid IouTransfer_Accept
-  submit bob do
-    exercise iouTransferBobCid IouTransfer_Accept
+  -- usBank registers new identity that bob and eurBank can authenticate
+  submit usBank do
+    create Credential with
+      issuer     = usBank
+      observers  = [bob, eurBank]
+      id         = "user1@email.io"
+      credential = "UaJla2V5Zm6jYmlkZnNoYTI1NnJub3JtYWxpemF0aW9uLWZvcm1kTkZLQ2RzYWx0eCxGeGFvcDZxMXVXY0cvNVJneWhHdTlxNGVaTTBlZGJ3VXhNckVRb0FSNDI0PWNwdWLYG4JlZWMucHSiZWN1cnZlaXNlY3AyNTZrMWVwb2ludHgsQW8vczlzV0FqWTdYVkl0RXVRUGRUUEJaNUJrNjFiaGZYc1JTYjBuN0hIalo="
