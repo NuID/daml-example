@@ -1,58 +1,54 @@
 (ns example.utils
   (:require
-   [nuid.elliptic.curve.point :as point]
    [nuid.cryptography :as crypt]
    [nuid.base64 :as base64]
+   [nuid.codec :as codec]
    [nuid.zk :as zk]
    #?@(:clj
-       [[nuid.multicodec :as multicodec]
-        [nuid.cbor :as nuid.cbor]
-        [clj-cbor.core :as cbor]
-        [clojure.walk :as walk]])))
+       [[clojure.spec-alpha2.gen :as gen]
+        [clojure.spec-alpha2 :as s]
+        [clojure.walk :as walk]
+        [nuid.codec.multicodec :as multicodec]]
+       :cljs
+       [[clojure.spec.gen.alpha :as gen]
+        [clojure.test.check.generators]
+        [clojure.spec.alpha :as s]])))
 
-(def default-spec
-  {:curve {:id "secp256k1"}
+(defn generate-default-parameters
+  []
+  {:curve    {:id "secp256k1"}
    :protocol {:id "knizk"}
-   :hashfn {:id "sha256"
-            :normalization-form "NFKC"}})
+   :hashfn   {:id                 "sha256"
+              :normalization-form "NFKC"}
+   :keyfn    {:id                 "sha256"
+              :salt               (gen/generate (s/gen ::crypt/salt))
+              :normalization-form "NFKC"}})
 
-(defn create-proof
+(defn generate-proof
   [{:keys [secret]}]
-  (let [secret {:secret secret}
-        keyfn {:keyfn {:id "sha256"
-                       :salt (crypt/secure-random-base64 32)
-                       :normalization-form "NFKC"}}
-        spec (merge default-spec keyfn)
-        pub {:pub (zk/pub (zk/coerce (merge spec secret)))}
-        nonce {:nonce (crypt/secure-random-bn 32)}
-        proof (zk/proof (zk/coerce (merge spec pub nonce secret)))]
-    (merge spec pub nonce proof)))
+  (let [params (second (s/conform ::zk/parameters (generate-default-parameters)))
+        pub    {:pub (zk/pub (merge params {:secret secret}))}
+        nonce  {:nonce (gen/generate (s/gen ::crypt/nonce))}
+        proof  (zk/proof (merge params pub nonce {:secret secret}))]
+    (merge params pub nonce proof)))
 
 #?(:clj
-   (def codec
-     (cbor/cbor-codec
-      {:read-handlers
-       (merge cbor/default-read-handlers
-              nuid.cbor/tagged-literal-read-handler)
-       :write-handlers
-       (merge cbor/default-write-handlers
-              point/cbor-write-handler)})))
+   (defn encode-credential
+     [credential]
+     (->>
+      (s/conform ::zk/credential credential)
+      (s/unform ::zk/credential)
+      (walk/stringify-keys)
+      (codec/encode "application/cbor")
+      (multicodec/prefixed :cbor)
+      (base64/encode))))
 
 #?(:clj
-   (defn decode
+   (defn decode-credential
      [encoded]
-     (->> (base64/decode encoded)
-          (multicodec/unprefixed)
-          (cbor/decode codec)
-          (walk/keywordize-keys))))
-
-#?(:clj
-   (defn encode
-     [params]
-     (as-> params $
-       (walk/stringify-keys $)
-       (cbor/encode codec $)
-       (multicodec/prefixed
-        {:multiformats.codec/key :cbor
-         :multiformats.codec/raw $})
-       (base64/encode $))))
+     (->>
+      (base64/decode encoded)
+      (multicodec/unprefixed)
+      (codec/decode "application/cbor")
+      (walk/keywordize-keys)
+      (s/conform ::zk/credential))))

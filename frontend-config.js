@@ -10,7 +10,7 @@ export const version = {
 };
 
 export const customViews = (userId, party, role) => ({
-  issued_ious: {
+  credentials: {
     type: "table-view",
     title: "Credentials",
     source: {

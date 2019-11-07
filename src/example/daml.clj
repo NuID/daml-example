@@ -32,7 +32,7 @@
 (defn filter-for
   [{:keys [daml/template-id daml/party]}]
   (let [inclusive-filter (InclusiveFilter. (Collections/singleton template-id))
-        filter (Collections/singletonMap party inclusive-filter)]
+        filter           (Collections/singletonMap party inclusive-filter)]
     (FiltersByParty. filter)))
 
 (defn wrap-consumer
@@ -47,16 +47,25 @@
     (accept [this x]
       (f x))))
 
+(defn update-ledger-offset
+  [offset]
+  (->> (LedgerOffset$Absolute. offset)
+       (reset! ledger-offset-atom)))
+
+(defn process-created-event
+  [e]
+  (let [contract   (Credential$Contract/fromCreatedEvent e)
+        id         (.. contract -data -id)
+        credential (utils/decode-credential
+                    (.. contract -data -credential))]
+    (swap! credentials-atom assoc id credential)
+    (swap! contracts-atom assoc (.-id contract) id)))
+
 (defn update-credentials-atom
   [response]
-  (let [f #(reset! ledger-offset-atom (LedgerOffset$Absolute. %))]
-    (.. response getOffset (ifPresent (wrap-consumer f)))
-    (doseq [e (.getCreatedEvents response)]
-      (let [contract (Credential$Contract/fromCreatedEvent e)
-            id (.-id (.-data contract))
-            credential (utils/decode (.-credential (.-data contract)))]
-        (swap! credentials-atom assoc id credential)
-        (swap! contracts-atom assoc (.-id contract) id)))))
+  (.. response getOffset (ifPresent (wrap-consumer update-ledger-offset)))
+  (doseq [e (.getCreatedEvents response)]
+    (process-created-event e)))
 
 (defn populate-credentials-atom
   [filter]
@@ -66,18 +75,10 @@
         (getActiveContracts filter true)
         (blockingForEach handler))))
 
-(defn process-created-event
-  [e]
-  (let [contract (Credential$Contract/fromCreatedEvent e)
-        id (.-id (.-data contract))
-        credential (utils/decode (.-credential (.-data contract)))]
-    (swap! credentials-atom assoc id credential)
-    (swap! contracts-atom assoc (.-id contract) id)))
-
 (defn process-archived-event
   [e]
   (let [cid (Credential$ContractId. (.getContractId e))
-        id (@contracts-atom cid)]
+        id  (@contracts-atom cid)]
     (swap! credentials-atom dissoc id)
     (swap! contracts-atom dissoc cid)))
 
@@ -97,12 +98,12 @@
 
 (defn start
   [& [{:keys [host port party]
-       :or {host "localhost"
-            port 6865
-            party "USD_Bank"}}]]
+       :or   {host  "localhost"
+              port  6865
+              party "USD_Bank"}}]]
   (let [client (DamlLedgerClient/forHostWithLedgerIdDiscovery host port (Optional/empty))
         filter (filter-for {:daml/template-id Credential/TEMPLATE_ID
-                            :daml/party party})]
+                            :daml/party       party})]
     (reset! client-atom client)
     (.connect @client-atom)
     (populate-credentials-atom filter)
@@ -117,8 +118,8 @@
 
 (defn submit!
   [{:keys [id] :as credential}]
-  (let [encoded (utils/encode (select-keys credential [:keyfn :pub]))
-        cmd (.create (Credential. "USD_Bank" ["EUR_Bank" "Bob"] id encoded))]
+  (let [encoded (utils/encode-credential (select-keys credential [:keyfn :pub]))
+        cmd     (.create (Credential. "USD_Bank" ["EUR_Bank" "Bob"] id encoded))]
     (.. @client-atom
         getCommandSubmissionClient
         (submit (.toString (UUID/randomUUID))

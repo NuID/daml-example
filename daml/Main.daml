@@ -17,5 +17,5 @@ setup = scenario do
     create Credential with
       issuer     = usBank
       observers  = [bob, eurBank]
-      id         = "user1@email.io"
-      credential = "UaJla2V5Zm6jYmlkZnNoYTI1NnJub3JtYWxpemF0aW9uLWZvcm1kTkZLQ2RzYWx0eCxGeGFvcDZxMXVXY0cvNVJneWhHdTlxNGVaTTBlZGJ3VXhNckVRb0FSNDI0PWNwdWLYG4JlZWMucHSiZWN1cnZlaXNlY3AyNTZrMWVwb2ludHgsQW8vczlzV0FqWTdYVkl0RXVRUGRUUEJaNUJrNjFiaGZYc1JTYjBuN0hIalo="
+      id         = "user0@email.io"
+      credential = "UaJla2V5Zm6jYmlkZnNoYTI1NmRzYWx0eCxzdjczT2tYSHpkREpYS0ZZb0JQcFdLNFR5cVo1c0tkSjRnY2h5MVlVVnVzPXJub3JtYWxpemF0aW9uLWZvcm1kTkZLQ2NwdWKiZWN1cnZloWJpZGlzZWNwMjU2azFlcG9pbnR4LEFrOVdWbGpOQTJRdjZiMjgwcUJYTUoxVHBMU2VQUGhEUlRSNlpBUjlRNnBQ"

@@ -1,16 +1,9 @@
 (ns example.browser.usdbanklogin
   (:require
-   [clojure.core.async :as async :include-macros true]
-   [nuid.elliptic.curve.point :as point]
-   [nuid.transit :as transit]
-   [nuid.zk :as zk]
-   [nuid.bn :as bn]
-   [cljs-http.client :as http]
    [stylefy.core :as css]
    [reagent.core :as r]
    [goog.dom :as dom]
-   [example.browser.login :as login]
-   [example.utils :as utils]))
+   [example.browser.login :as login]))
 
 (def global-css
   {:global-vendor-prefixes
@@ -42,25 +35,26 @@
             "Cantarell"
             "\"Open Sans\""
             "sans-serif"])
-          :margin 0
+          :margin  0
           :padding 0})
 
 (defn content
   []
   [:div
    (css/use-style
-    {:align-items "center"
-     :background "linear-gradient(45deg,#354c86,#2b3c68)"
-     :color "white"
-     :display "flex"
-     :height "100vh"
+    {:align-items     "center"
+     :background      "linear-gradient(45deg,#354c86,#2b3c68)"
+     :color           "white"
+     :display         "flex"
+     :height          "100vh"
      :justify-content "center"
-     :width "100vw"})
+     :width           "100vw"})
+
    [login/component
     {:register-fn
-     (partial login/register! {:endpoint "/usdbank"})
+     (partial login/register! {:endpoint (str js/window.origin "/usdbank")})
      :authenticate-fn
-     (partial login/authenticate! {:endpoint "/usdbank"})}]])
+     (partial login/authenticate! {:endpoint (str js/window.origin "/usdbank")})}]])
 
 (defn render
   []
@@ -69,6 +63,6 @@
    (dom/getElement "app")))
 
 (defn ^:export init
-  [id]
+  [_]
   (css/init global-css)
   (render))
