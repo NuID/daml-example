@@ -1,60 +1,49 @@
 {:deps
  {org.clojure/clojure {:mvn/version "1.10.1"},
-  nuid/elliptic
-  {:git/url "https://github.com/nuid/elliptic.git",
-   :sha "1a0644a27d395bcabb0c1f37fa070419f0ac31d6"},
+  org.clojure/spec-alpha2
+  {:git/url "https://github.com/clojure/spec-alpha2",
+   :sha "2a0a7c49c86e31b528be857ed004a4931a0c2551"},
+  org.clojure/spec.alpha {:mvn/version "0.2.176"},
   com.daml.ledger/bindings-rxjava
-  {:mvn/version "100.13.22",
+  {:mvn/version "100.13.34",
    :exclusions [com.google.protobuf/protobuf-lite]},
+  nuid/codec
+  {:git/url "https://github.com/nuid/codec.git",
+   :sha "097e58891c1867ff68a2d1acf8267eff83a5753b"},
   bidi {:mvn/version "2.1.6"},
-  mvxcvi/clj-cbor {:mvn/version "0.7.2"},
   nuid/zk
   {:git/url "https://github.com/nuid/zk.git",
-   :sha "891f19254f766d31ededf8e3cf2866ad129c2bc8"},
+   :sha "f8c952bef6175023d3efe43d46d99274691a64d6"},
   nuid/base64
   {:git/url "https://github.com/nuid/base64.git",
-   :sha "8d68cc9dba977f934a5df09ca0abc61a0e67603a"},
-  nuid/browser
-  {:git/url "git@github.com:nuid/browser.git",
-   :sha "eba13f3144b0668b8232b8cfaad75eb3abb11ca4"},
+   :sha "349f8a2ce9cf2f252f8107a697ed88f4b8080e58"},
   http-kit {:mvn/version "2.3.0"},
   com.google.guava/guava {:mvn/version "28.0-jre"},
   hiccup {:mvn/version "1.0.5"},
   nuid/cryptography
   {:git/url "https://github.com/nuid/cryptography.git",
-   :sha "c621e44e149fe54a1dd857066915bbe578dce6f5"},
-  nuid/transit
-  {:git/url "https://github.com/nuid/transit.git",
-   :sha "4b2aca7e123809418eee20c24908da400d6748d5"},
+   :sha "b5ffb24f704021e63b32bcbf8a2f24a68d14da9b"},
   buddy/buddy-auth {:mvn/version "2.2.0"},
-  nuid/bn
-  {:git/url "https://github.com/nuid/bn.git",
-   :sha "232c50cee0e243edceccf8f81a340cecb98414a3"},
-  nuid/multicodec
-  {:git/url "https://github.com/nuid/multicodec.git",
-   :sha "14ab9e43350a3882a5ae0c50533e974c489b8fad"},
+  org.clojure/test.check {:mvn/version "0.10.0"},
   ring/ring-core {:mvn/version "1.7.1"},
   ring-middleware-format {:mvn/version "0.7.4"},
-  nuid/cbor
-  {:git/url "https://github.com/nuid/cbor.git",
-   :sha "3de6f3f0d7823ef75a302d2ced9b0c6aa4c7e55f"},
   org.clojure/core.async {:mvn/version "0.4.500"}},
  :aliases
  {:codegen
-  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.22"}},
+  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.34"}},
    :main-opts
    ["-m"
     "daml.codegen.main"
     "-o"
-    "target/generated-sources/daml-nuid-ex"
+    "target/generated-sources/daml-nuid-example"
     "-d"
     "com.nuid.credential.TemplateDecoder"
-    ".daml/dist/daml-nuid-ex.dar=com.nuid.credential.model"]},
+    ".daml/dist/daml-nuid-example-1.0.0.dar=com.nuid.credential.model"]},
   :cljfmt
   {:extra-deps
    {com.jameslaverack/cljfmt-runner
     {:git/url "https://github.com/JamesLaverack/cljfmt-runner",
-     :sha "d6952345b3047e03ca3a88f89a1433c109b7b442"}},
+     :sha "6383fbb0bd22a21c0edf5b699425504d9f0a958a"}},
    :main-opts ["-m" "cljfmt-runner.check"]},
   :cljfmt/fix {:main-opts ["-m" "cljfmt-runner.fix"]},
   :depot
@@ -63,11 +52,11 @@
   :depot/update {:main-opts ["-m" "depot.outdated.main --update"]},
   :shadow
   {:extra-deps
-   {thheller/shadow-cljs {:mvn/version "2.8.52"},
+   {thheller/shadow-cljs {:mvn/version "2.8.69"},
     org.clojure/clojurescript {:mvn/version "1.10.520"},
     nuid/browser
     {:git/url "git@github.com:nuid/browser.git",
-     :sha "eba13f3144b0668b8232b8cfaad75eb3abb11ca4"},
+     :sha "9849e8ca02b8d75152e651ace1245fa0558f7527"},
     cljs-http {:mvn/version "0.1.46"},
     stylefy {:mvn/version "1.14.0"},
     reagent {:mvn/version "0.8.1"}}},
@@ -76,5 +65,8 @@
    :extra-deps
    {nuid/deps
     {:git/url "https://github.com/nuid/deps.git",
-     :sha "1cf5069bc708adf9f2809f3917cc9c5e971f28a0"}}}},
+     :sha "f1b21065a56ceae418cc124691a74d0ff5395c68"}}},
+  :server
+  {:extra-paths ["target/classes" "resources"],
+   :main-opts ["-m" "example.server"]}},
  :paths ["src"]}
