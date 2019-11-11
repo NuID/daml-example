@@ -5,6 +5,9 @@
 
 NuID's distributed key management backed by DAML's smart contract platform.
 
+## ⚠️
+
+This repository exists with strictly illustrative intent. Proceed as such, and get in touch if you're interested in using **NuID :: DAML** in a production environment!
 
 ## Requirements
 
