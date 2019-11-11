@@ -7,7 +7,7 @@ NuID's distributed key management backed by DAML's smart contract platform.
 
 ## ⚠️
 
-This repository exists with strictly illustrative intent. Proceed as such, and get in touch if you're interested in using **NuID :: DAML** in a production environment!
+This repository is intended as an illustrative example. Get in touch if you're interested in using **NuID :: DAML** in a production environment!
 
 ## Requirements
 
@@ -27,6 +27,6 @@ $ ./bin/demo.sh
 Once `Server started!` appears in the terminal output, you'll be able to visit:
 * `localhost:4000` to inspect the DAML navigator
 * `localhost:8080` to interact with a minimal login demo
-* `localhost:8080/slides` for additional information on using NuID :: DAML (navigate by clicking the top or bottom half of the page)
+* `localhost:8080/slides` for additional information on using **NuID :: DAML**
 
 Exit and cleanup with `ctrl+c` (twice, on some platforms).
