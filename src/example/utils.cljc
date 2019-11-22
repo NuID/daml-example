@@ -32,6 +32,17 @@
         proof  (zk/proof (merge params pub nonce {:secret secret}))]
     (merge params pub nonce proof)))
 
+(s/def ::challenge
+  (s/keys :req-un [::zk/pub ::zk/keyfn ::crypt/nonce]))
+
+(defn generate-challenge
+  [credential]
+  (->>
+   (gen/generate (s/gen ::crypt/nonce))
+   (assoc {} :nonce)
+   (merge credential)
+   (s/unform ::challenge)))
+
 #?(:clj
    (defn encode-credential
      [credential]

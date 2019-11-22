@@ -8,7 +8,8 @@
    [buddy.auth :as buddy.auth]
    [buddy.sign.jwt :as buddy.jwt]
    [hiccup.core :as hiccup]
-   [example.daml :as daml]))
+   [example.daml :as daml]
+   [example.utils :as utils]))
 
 (def secret "test")
 
@@ -54,8 +55,7 @@
 (defn home
   [req]
   (->
-   [:html
-    default-head-hiccup
+   [:html default-head-hiccup
     [:body
      (if (buddy.auth/authenticated? req)
        (home-app-hiccup (:identity req))
@@ -67,10 +67,8 @@
 (defn slides
   [_]
   (->
-   [:html
-    default-head-hiccup
-    [:body
-     slides-app-hiccup]]
+   [:html default-head-hiccup
+    [:body slides-app-hiccup]]
    (hiccup/html)
    (ring.response/response)
    (ring.response/content-type "text/html")))
@@ -78,8 +76,7 @@
 (defn usdbank
   [req]
   (->
-   [:html
-    default-head-hiccup
+   [:html default-head-hiccup
     [:body
      (if (buddy.auth/authenticated? req)
        (usdbank-app-hiccup (:identity req))
@@ -103,18 +100,11 @@
          (ring.response/content-type "application/json")))
       {:status 422})))
 
-(s/def ::challenge
-  (s/keys :req-un [::zk/pub ::zk/keyfn ::crypt/nonce]))
-
 (defn initialize
   [req]
   (let [id (get-in req [:params :id])]
     (if-let [credential (@daml/credentials-atom id)]
-      (let [challenge (->>
-                       (gen/generate (s/gen ::crypt/nonce))
-                       (assoc {} :nonce)
-                       (merge credential)
-                       (s/unform ::challenge))]
+      (let [challenge (utils/generate-challenge credential)]
         (swap! nonce-atom conj (:nonce challenge))
         (->
          challenge

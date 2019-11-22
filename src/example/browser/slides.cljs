@@ -57,7 +57,6 @@
           :margin  0
           :padding 0})
 
-
 (defn slide
   [{:keys [index]} content]
   [:div
@@ -102,7 +101,7 @@
     [:h3
      (css/use-style
       subtitle)
-     "NuID is a new paradigm in digital identity and authentication. By combining DLT and zero knowledge cryptography, we enable enterprises to get rid of centralized credential databases, embrace a decentralized identity model, and return ownership of authentication data where it belongs: with their users."]]])
+     "NuID is a new paradigm in digital identity and authentication. By combining DLT and zero knowledge cryptography, we enable developers to get rid of centralized credential databases, embrace a decentralized identity model, and return ownership of authentication data to where it belongs: with users."]]])
 
 (defn breach-stats
   []
@@ -193,6 +192,26 @@
       :text-align  "center"})
     "Walled gardens cause problems."]])
 
+(defn federated-paradigm
+  []
+  [:div
+   (css/use-style
+    (merge
+     styles/flex
+     styles/align-center
+     styles/vertical-center
+     {:flex-direction "column"
+      :height         "100%"}))
+
+   [:img {:src "/svg/federated-paradigm.svg"}]
+
+   [:h1
+    (css/use-style
+     {:font-weight "300"
+      :margin-top  "115px"
+      :text-align  "center"})
+    "Federation helps..."]])
+
 (defn decentralized-paradigm
   []
   [:div
@@ -212,6 +231,45 @@
       :margin-top  "115px"
       :text-align  "center"})
     "NuID simplifies identity management with transparent key coordination."]])
+
+(defn asymmetric-authentication
+  []
+  [:div
+   (css/use-style
+    (merge
+     styles/flex
+     styles/align-center
+     styles/vertical-center
+     {:height "100%"}))
+
+   [:div
+    (css/use-style
+     (merge
+      styles/flex
+      styles/align-center
+      {:justify-content "right"
+       :height          "100%"
+       :width           "50%"}))
+
+    [:h1
+     (css/use-style
+      {:margin-right "10px"})
+     "Asymmetric"]]
+
+   [:div
+    (css/use-style
+     (merge
+      styles/flex
+      styles/align-center
+      {:background "black"
+       :color      "white"
+       :height     "100%"
+       :width      "50%"}))
+
+    [:h1
+     (css/use-style
+      {:margin-left "10px"})
+     "Authentication"]]])
 
 (defn zero-knowledge
   []
@@ -303,12 +361,13 @@
       {:font-weight "300"})
      "SSO"]]])
 
-(defn nuid+daml
+(defn nuid+daml-use-cases
   []
   [:div
    (css/use-style
-    styles/flex
-    {:height "100%"})
+    (merge
+     styles/flex
+     {:height "100%"}))
 
    [:div
     (css/use-style
@@ -319,11 +378,13 @@
       {:background          "url(/png/daml.png)"
        :background-size     "cover"
        :background-position "0%"
-       :height              "53vh"})]
+       :height              "50%"})]
 
     [:video
      (css/use-style
-      {:max-width "100%"}
+      {:background "black"
+       :height     "50%"
+       :max-width  "100%"}
       {:autoPlay true
        :loop     true
        :muted    true})
@@ -370,6 +431,66 @@
          value-prop-style)
         "Modern Login"]])]])
 
+(defn nuid+daml-developer-benefits
+  []
+  [:div
+   (css/use-style
+    (merge
+     styles/flex
+     {:height "100%"}))
+
+   [:div
+    (css/use-style
+     {:height "100%"
+      :width  "50%"})
+
+    [:div
+     (css/use-style
+      {:background          "url(/png/daml.png)"
+       :background-size     "cover"
+       :background-position "0%"
+       :height              "50%"})]
+
+    [:video
+     (css/use-style
+      {:background "black"
+       :height     "50%"
+       :max-width  "100%"}
+      {:autoPlay true
+       :loop     true
+       :muted    true})
+
+     [:source
+      {:src  "/mp4/logo-animation.mp4"
+       :type "video/mp4"}]]]
+
+   [:div
+    (css/use-style
+     (merge
+      styles/flex
+      styles/align-center
+      styles/vertical-center
+      {:width "50%"}))
+
+    (let [value-prop-style
+          {:margin "25px 0"}]
+
+      [:div
+       [:h1
+        (css/use-style
+         value-prop-style)
+        "+ Ledger Abstraction"]
+
+       [:h1
+        (css/use-style
+         value-prop-style)
+        "+ Developer Tooling"]
+
+       [:h1
+        (css/use-style
+         value-prop-style)
+        "+ Enterprise Integration"]])]])
+
 (defn consortium-example
   []
   [:div
@@ -399,11 +520,12 @@
   [about-us
    breach-stats
    centralized-paradigm
+   federated-paradigm
    decentralized-paradigm
+   asymmetric-authentication
    zero-knowledge
    zk+dlt
-   nuid+daml
-   consortium-example])
+   nuid+daml-use-cases])
 
 (defn demo-start
   []

@@ -57,8 +57,9 @@
 (defn initialize!
   [{:keys [endpoint]}
    {:keys [id]}]
-  (http/get (str endpoint "/initialize")
-            {:query-params {"id" id}}))
+  (http/get
+   (str endpoint "/initialize")
+   {:query-params {"id" id}}))
 
 (defn prove!
   [{:keys [endpoint]}
