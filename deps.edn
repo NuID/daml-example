@@ -5,7 +5,7 @@
    :sha "2a0a7c49c86e31b528be857ed004a4931a0c2551"},
   org.clojure/spec.alpha {:mvn/version "0.2.176"},
   com.daml.ledger/bindings-rxjava
-  {:mvn/version "100.13.34",
+  {:mvn/version "100.13.36",
    :exclusions [com.google.protobuf/protobuf-lite]},
   nuid/codec
   {:git/url "https://github.com/nuid/codec.git",
@@ -13,7 +13,7 @@
   bidi {:mvn/version "2.1.6"},
   nuid/zk
   {:git/url "https://github.com/nuid/zk.git",
-   :sha "41bcc9b8d4ade54c6fa5e03ada94d57f48dd5254"},
+   :sha "91e27c37c3c91b2c0bed61d900f154429a29408b"},
   nuid/base64
   {:git/url "https://github.com/nuid/base64.git",
    :sha "a298b10817a8b7fd816e8d5c03e66c290fb49fe9"},
@@ -30,7 +30,7 @@
   org.clojure/core.async {:mvn/version "0.4.500"}},
  :aliases
  {:codegen
-  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.34"}},
+  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.36"}},
    :main-opts
    ["-m"
     "daml.codegen.main"
