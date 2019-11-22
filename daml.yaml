@@ -1,4 +1,4 @@
-sdk-version: 0.13.34
+sdk-version: 0.13.36
 name: daml-nuid-example
 source: daml/Main.daml
 parties:
