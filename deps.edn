@@ -2,35 +2,34 @@
  {org.clojure/clojure {:mvn/version "1.10.1"},
   org.clojure/spec-alpha2
   {:git/url "https://github.com/clojure/spec-alpha2",
-   :sha "2a0a7c49c86e31b528be857ed004a4931a0c2551"},
-  org.clojure/spec.alpha {:mvn/version "0.2.176"},
+   :sha "de38650874c6f0bc19e7755feab4d65b3fffb268"},
   com.daml.ledger/bindings-rxjava
-  {:mvn/version "100.13.36",
+  {:mvn/version "100.13.37",
    :exclusions [com.google.protobuf/protobuf-lite]},
   nuid/codec
   {:git/url "https://github.com/nuid/codec.git",
-   :sha "b52200253c460612bdbdafb6fe5773a8fba2511e"},
+   :sha "584369c27bb52ee0dc3795610e9c1c62c81de33c"},
   bidi {:mvn/version "2.1.6"},
   nuid/zk
   {:git/url "https://github.com/nuid/zk.git",
-   :sha "91e27c37c3c91b2c0bed61d900f154429a29408b"},
+   :sha "34fc1171e9f75cbe12e75b28348d5c28ac7d97e2"},
   nuid/base64
   {:git/url "https://github.com/nuid/base64.git",
-   :sha "a298b10817a8b7fd816e8d5c03e66c290fb49fe9"},
+   :sha "ad2dd471b31d217465676e73edca3da38f0e3409"},
   http-kit {:mvn/version "2.3.0"},
   com.google.guava/guava {:mvn/version "28.0-jre"},
   hiccup {:mvn/version "1.0.5"},
   nuid/cryptography
   {:git/url "https://github.com/nuid/cryptography.git",
-   :sha "e139604c27be1a472859e32ec3da989dd1b4a634"},
+   :sha "062f0227df18ab4f39355b8904f68d7678d0a2a6"},
   buddy/buddy-auth {:mvn/version "2.2.0"},
   org.clojure/test.check {:mvn/version "0.10.0"},
-  ring/ring-core {:mvn/version "1.7.1"},
+  ring/ring-core {:mvn/version "1.8.0"},
   ring-middleware-format {:mvn/version "0.7.4"},
-  org.clojure/core.async {:mvn/version "0.4.500"}},
+  org.clojure/core.async {:mvn/version "0.5.527"}},
  :aliases
  {:codegen
-  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.36"}},
+  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.37"}},
    :main-opts
    ["-m"
     "daml.codegen.main"
@@ -39,33 +38,18 @@
     "-d"
     "com.nuid.credential.TemplateDecoder"
     ".daml/dist/daml-nuid-example-1.0.0.dar=com.nuid.credential.model"]},
-  :cljfmt
+  :cljs
   {:extra-deps
-   {com.jameslaverack/cljfmt-runner
-    {:git/url "https://github.com/JamesLaverack/cljfmt-runner",
-     :sha "6383fbb0bd22a21c0edf5b699425504d9f0a958a"}},
-   :main-opts ["-m" "cljfmt-runner.check"]},
-  :cljfmt/fix {:main-opts ["-m" "cljfmt-runner.fix"]},
-  :depot
-  {:extra-deps {olical/depot {:mvn/version "1.8.4"}},
-   :main-opts ["-m" "depot.outdated.main"]},
-  :depot/update {:main-opts ["-m" "depot.outdated.main --update"]},
-  :shadow
-  {:extra-deps
-   {thheller/shadow-cljs {:mvn/version "2.8.69"},
-    org.clojure/clojurescript {:mvn/version "1.10.520"},
+   {org.clojure/clojurescript {:mvn/version "1.10.597"},
+    org.clojure/spec.alpha {:mvn/version "0.2.176"},
+    thheller/shadow-cljs {:mvn/version "2.8.74"},
     nuid/browser
     {:git/url "git@github.com:nuid/browser.git",
-     :sha "0a38b36971ad9c3ba54448bb75ca36507a343e0d"},
+     :sha "28d148315d386ce593ec48611190e7ce2486f45f"},
     cljs-http {:mvn/version "0.1.46"},
     stylefy {:mvn/version "1.14.0"},
     reagent {:mvn/version "0.8.1"}}},
-  :repl
-  {:extra-paths ["target/classes" "resources"],
-   :extra-deps
-   {nuid/deps
-    {:git/url "https://github.com/nuid/deps.git",
-     :sha "843e7ff969e743a304aff39ab3d8f2e32b6847cf"}}},
+  :repl {:extra-paths ["target/classes" "resources"]},
   :server
   {:extra-paths ["target/classes" "resources"],
    :main-opts ["-m" "example.server"]}},

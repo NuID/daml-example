@@ -3,39 +3,18 @@
 .package-database
 .daml
 *.log
-
-# build
 target
-classes
-*.jar
-*.class
-.shadow-cljs
-cljs-runtime
-resources/public/js
 
 # clj
 .cpcache
 
-# emacs
-.\#*
+# npm
+node_modules
 
-# vim
-*.swp
-*.swo
-
-# macOS
-.DS_Store
+# shadow-cljs
+.shadow-cljs
+resources/public/js/example
+target
 
 # nREPL
 .nrepl-port
-
-# nohup
-nohup.out
-
-# misc
-logs
-log
-tmp
-*.tmp
-
-node_modules
