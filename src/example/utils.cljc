@@ -5,8 +5,8 @@
    [nuid.codec :as codec]
    [nuid.zk :as zk]
    #?@(:clj
-       [[clojure.spec-alpha2.gen :as gen]
-        [clojure.spec-alpha2 :as s]
+       [[clojure.alpha.spec.gen :as gen]
+        [clojure.alpha.spec :as s]
         [clojure.walk :as walk]
         [nuid.codec.multicodec :as multicodec]]
        :cljs

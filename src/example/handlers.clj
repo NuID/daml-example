@@ -1,7 +1,7 @@
 (ns example.handlers
   (:require
-   [clojure.spec-alpha2.gen :as gen]
-   [clojure.spec-alpha2 :as s]
+   [clojure.alpha.spec.gen :as gen]
+   [clojure.alpha.spec :as s]
    [nuid.cryptography :as crypt]
    [nuid.zk :as zk]
    [ring.util.response :as ring.response]
