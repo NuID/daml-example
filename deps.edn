@@ -2,9 +2,9 @@
  {org.clojure/clojure {:mvn/version "1.10.1"},
   org.clojure/alpha.spec
   {:git/url "https://github.com/clojure/spec-alpha2",
-   :sha "8a5f96513582343c68e64686e2f0bd2c44adbe94"},
+   :sha "8498f9cb352135579b6d3a0a5d15c40e5c2647ce"},
   com.daml.ledger/bindings-rxjava
-  {:mvn/version "100.13.41",
+  {:mvn/version "100.13.56-snapshot.20200331.3729.0.b43b8d86",
    :exclusions [com.google.protobuf/protobuf-lite]},
   nuid/codec
   {:git/url "https://github.com/nuid/codec.git",
@@ -23,13 +23,13 @@
   {:git/url "https://github.com/nuid/cryptography.git",
    :sha "73df9ccfca27e3313a3732fbaea3e326a6843235"},
   buddy/buddy-auth {:mvn/version "2.2.0"},
-  org.clojure/test.check {:mvn/version "0.10.0"},
-  ring/ring-core {:mvn/version "1.8.0"},
+  org.clojure/test.check {:mvn/version "1.0.0"},
+  ring/ring-core {:mvn/version "1.8.1"},
   ring-middleware-format {:mvn/version "0.7.4"},
-  org.clojure/core.async {:mvn/version "0.6.532"}},
+  org.clojure/core.async {:mvn/version "1.1.587"}},
  :aliases
  {:codegen
-  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.41"}},
+  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.56-snapshot.20200331.3729.0.b43b8d86"}},
    :main-opts
    ["-m"
     "daml.codegen.main"
@@ -40,15 +40,15 @@
     ".daml/dist/daml-nuid-example-1.0.0.dar=com.nuid.credential.model"]},
   :cljs
   {:extra-deps
-   {org.clojure/clojurescript {:mvn/version "1.10.597"},
-    org.clojure/spec.alpha {:mvn/version "0.2.176"},
-    thheller/shadow-cljs {:mvn/version "2.8.83"},
+   {org.clojure/clojurescript {:mvn/version "1.10.753"},
+    org.clojure/spec.alpha {:mvn/version "0.2.187"},
+    thheller/shadow-cljs {:mvn/version "2.8.109"},
     nuid/browser
     {:git/url "git@github.com:nuid/browser.git",
-     :sha "0fb5c76a343f62feabbb854b8b6332088fe878d7"},
+     :sha "2b49bb074dd355d79afec96575b4957e0db5da2a"},
     cljs-http {:mvn/version "0.1.46"},
-    stylefy {:mvn/version "1.14.0"},
-    reagent {:mvn/version "0.8.1"}}},
+    stylefy {:mvn/version "1.14.1"},
+    reagent {:mvn/version "0.10.0"}}},
   :repl {:extra-paths ["target/classes" "resources"]},
   :server
   {:extra-paths ["target/classes" "resources"],
