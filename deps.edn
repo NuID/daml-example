@@ -8,20 +8,20 @@
    :exclusions [com.google.protobuf/protobuf-lite]},
   nuid/codec
   {:git/url "https://github.com/nuid/codec.git",
-   :sha "50d3946126b5db457fd2ffd4e1bc15ac36b0ea95"},
+   :sha "f4bedfc2dee6a78bdd91c630823647c4018da8a0"},
   bidi {:mvn/version "2.1.6"},
   nuid/zk
   {:git/url "https://github.com/nuid/zk.git",
-   :sha "9497df5bc5ac9f4f836c64470d99c83fbbc740e0"},
+   :sha "6d914e128297dee10358ae264f080efb6c771e8a"},
   nuid/base64
   {:git/url "https://github.com/nuid/base64.git",
-   :sha "ab441adf14861b0e4a51329190a6672fbf8d7226"},
+   :sha "59fa46ddc020dc11824e16e18ad639ac9e1ea252"},
   http-kit {:mvn/version "2.3.0"},
   com.google.guava/guava {:mvn/version "28.0-jre"},
   hiccup {:mvn/version "1.0.5"},
   nuid/cryptography
   {:git/url "https://github.com/nuid/cryptography.git",
-   :sha "73df9ccfca27e3313a3732fbaea3e326a6843235"},
+   :sha "ff69e934d4cfeba763bc02a77568e88dba3c285a"},
   buddy/buddy-auth {:mvn/version "2.2.0"},
   org.clojure/test.check {:mvn/version "1.0.0"},
   ring/ring-core {:mvn/version "1.8.1"},
@@ -29,7 +29,9 @@
   org.clojure/core.async {:mvn/version "1.1.587"}},
  :aliases
  {:codegen
-  {:extra-deps {com.daml.java/codegen {:mvn/version "100.13.56-snapshot.20200331.3729.0.b43b8d86"}},
+  {:extra-deps
+   {com.daml.java/codegen
+    {:mvn/version "100.13.56-snapshot.20200331.3729.0.b43b8d86"}},
    :main-opts
    ["-m"
     "daml.codegen.main"
@@ -45,7 +47,7 @@
     thheller/shadow-cljs {:mvn/version "2.8.109"},
     nuid/browser
     {:git/url "git@github.com:nuid/browser.git",
-     :sha "2b49bb074dd355d79afec96575b4957e0db5da2a"},
+     :sha "de51dae7664727649f198fe890a3e4fb8c43eb8b"},
     cljs-http {:mvn/version "0.1.46"},
     stylefy {:mvn/version "1.14.1"},
     reagent {:mvn/version "0.10.0"}}},
