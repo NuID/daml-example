@@ -47,7 +47,7 @@
     thheller/shadow-cljs {:mvn/version "2.8.109"},
     nuid/browser
     {:git/url "git@github.com:nuid/browser.git",
-     :sha "b046a666e7b9725343ce510a98e39867cbae060a"},
+     :sha "4a9f6513b9c344f6cd9408ae3fc094d9d6d20f58"},
     cljs-http {:mvn/version "0.1.46"},
     stylefy {:mvn/version "1.14.1"},
     reagent {:mvn/version "0.10.0"}}},
